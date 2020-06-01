@@ -1,7 +1,8 @@
 name: calendar_calendar
 description: A new Flutter package project.
-version: 0.0.1
-homepage: https://gabul.dev
+version: 0.0.1+1
+repository: https://github.com/gabuldev/calendar_flutter
+homepage: https://gabul.dev/
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
