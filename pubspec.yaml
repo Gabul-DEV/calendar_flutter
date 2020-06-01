@@ -1,8 +1,7 @@
 name: calendar
 description: A new Flutter package project.
 version: 0.0.1
-author:
-homepage:
+homepage: https://gabul.dev
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -13,7 +12,7 @@ dependencies:
   date_util: ^0.1.4
   animate_do: ^1.7.2
   animated_text_kit: ^2.2.0  
-  rxdart:
+  rxdart: ^0.24.1
 
 dev_dependencies:
   flutter_test:
