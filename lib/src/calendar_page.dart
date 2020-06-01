@@ -1,4 +1,5 @@
 import 'package:calendar_calendar/src/calendar_page_controller.dart';
+import 'package:calendar_calendar/src/models/date.dart';
 import 'package:calendar_calendar/src/widgets/calendar_widget.dart';
 import 'package:flutter/material.dart';
 

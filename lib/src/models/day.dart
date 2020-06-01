@@ -12,7 +12,6 @@ class Day {
   Day({this.value, this.weekDay});
 
   @override
-  // TODO: implement hashCode
   int get hashCode => value;
 
   operator ==(other) => other.hashCode == hashCode;
