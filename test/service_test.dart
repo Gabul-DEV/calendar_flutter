@@ -1,4 +1,4 @@
-import 'package:calendar/src/service.dart';
+import 'package:calendar_calendar/src/service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 main() {

@@ -1,4 +1,4 @@
-import 'package:calendar/src/models/day.dart';
+import 'package:calendar_calendar/src/models/day.dart';
 import 'package:flutter/material.dart';
 
 class DayWidget extends StatelessWidget {

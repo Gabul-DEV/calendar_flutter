@@ -1,5 +1,5 @@
-import 'package:calendar/src/models/day.dart';
-import 'package:calendar/src/service.dart';
+import 'package:calendar_calendar/src/models/day.dart';
+import 'package:calendar_calendar/src/service.dart';
 
 class Controller {
   final _service = Service();

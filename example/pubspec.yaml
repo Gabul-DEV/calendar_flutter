@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  calendar:
+  calendar_calendar:
     path: ../  
 
 
