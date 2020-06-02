@@ -14,7 +14,9 @@ class Calendar extends StatefulWidget {
   final TextStyle titleStyle;
   final bool weekendOpacityEnable;
   final double weekendOpacity;
+  final bool disable;
   final ValueChanged<Date> onSelected;
+  final DateTime initialDate;
 
   final Widget previous;
   final Widget next;
@@ -31,10 +33,12 @@ class Calendar extends StatefulWidget {
     this.selectedStyle,
     this.textStyleDays,
     this.textStyleWeekDay,
-    @required this.onSelected,
+    this.onSelected,
     this.space,
     this.weekendOpacityEnable = false,
     this.weekendOpacity = 0.48,
+    this.disable = false,
+    this.initialDate,
   })  : assert(weekendOpacityEnable == true
             ? textStyleWeekDay.color != null
             : true),
@@ -54,7 +58,7 @@ class _CalendarState extends State<Calendar>
   @override
   void initState() {
     pageController = PageController(initialPage: 1);
-    controller = CalendarPageController(pageController);
+    controller = CalendarPageController(pageController, widget.initialDate);
 
     super.initState();
   }
@@ -75,52 +79,51 @@ class _CalendarState extends State<Calendar>
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-            child: Expanded(
-              flex: 1,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  StreamBuilder(
-                      stream: controller.update,
-                      initialData: PageDirection.none,
-                      builder: (context, snapshot) {
-                        return Text(
-                          "${controller.dataCollection.currentMonth.month.month}, ${controller.dataCollection.currentMonth.year}",
-                          style: widget.titleStyle,
-                        );
-                      }),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (widget.previous != null)
-                        InkWell(
-                          highlightColor: Colors.grey[500],
-                          focusColor: Colors.grey[500],
-                          child: widget.previous,
-                          onTap: () {
-                            pageController.previousPage(
-                                duration: Duration(milliseconds: 200),
-                                curve: Curves.linear);
-                          },
-                        ),
-                      SizedBox(
-                        width: widget.space,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                StreamBuilder(
+                    stream: controller.update,
+                    initialData: PageDirection.none,
+                    builder: (context, snapshot) {
+                      return Text(
+                        "${controller.dataCollection.currentMonth.month.month}, ${controller.dataCollection.currentMonth.year}",
+                        style: widget.titleStyle,
+                      );
+                    }),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (widget.previous != null)
+                      GestureDetector(
+                        child: widget.previous,
+                        onTap: widget.disable == true
+                            ? null
+                            : () {
+                                pageController.previousPage(
+                                    duration: Duration(milliseconds: 200),
+                                    curve: Curves.linear);
+                              },
                       ),
-                      if (widget.previous != null)
-                        InkWell(
-                          child: widget.next,
-                          onTap: () {
-                            pageController.nextPage(
-                                duration: Duration(milliseconds: 200),
-                                curve: Curves.linear);
-                          },
-                        )
-                    ],
-                  ),
-                ],
-              ),
+                    SizedBox(
+                      width: widget.space,
+                    ),
+                    if (widget.previous != null)
+                      GestureDetector(
+                        child: widget.next,
+                        onTap: widget.disable == true
+                            ? null
+                            : () {
+                                pageController.nextPage(
+                                    duration: Duration(milliseconds: 200),
+                                    curve: Curves.linear);
+                              },
+                      )
+                  ],
+                ),
+              ],
             ),
           ),
           Table(
@@ -144,8 +147,10 @@ class _CalendarState extends State<Calendar>
                           )))),
             ],
           ),
+          SizedBox(
+            height: 16,
+          ),
           Expanded(
-            flex: 2,
             child: StreamBuilder<PageDirection>(
                 stream: controller.update.stream,
                 builder: (context, snapshot) => PageView(
@@ -155,7 +160,8 @@ class _CalendarState extends State<Calendar>
                         CalendarWidget(
                           key: Key(controller.dataCollection.previousMonth.key),
                           date: controller.dataCollection.previousMonth,
-                          onSelected: widget.onSelected,
+                          onSelected:
+                              widget.disable == true ? null : widget.onSelected,
                           backgroundColor: widget.backgroundColor,
                           activeColor: widget.activeColor,
                           selectedStyle: widget.selectedStyle,
@@ -171,7 +177,8 @@ class _CalendarState extends State<Calendar>
                         CalendarWidget(
                           key: Key(controller.dataCollection.currentMonth.key),
                           date: controller.dataCollection.currentMonth,
-                          onSelected: widget.onSelected,
+                          onSelected:
+                              widget.disable == true ? null : widget.onSelected,
                           backgroundColor: widget.backgroundColor,
                           activeColor: widget.activeColor,
                           selectedStyle: widget.selectedStyle,
@@ -187,7 +194,8 @@ class _CalendarState extends State<Calendar>
                         CalendarWidget(
                           key: Key(controller.dataCollection.nextMonth.key),
                           date: controller.dataCollection.nextMonth,
-                          onSelected: widget.onSelected,
+                          onSelected:
+                              widget.disable == true ? null : widget.onSelected,
                           backgroundColor: widget.backgroundColor,
                           activeColor: widget.activeColor,
                           selectedStyle: widget.selectedStyle,
@@ -203,7 +211,6 @@ class _CalendarState extends State<Calendar>
                       ],
                     )),
           ),
-          Expanded(flex: 1, child: Container())
         ],
       ),
     );

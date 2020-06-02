@@ -1,4 +1,5 @@
 import 'package:calendar_calendar/src/models/date.dart';
+import 'package:calendar_calendar/src/models/day.dart';
 import 'package:calendar_calendar/src/widgets/day_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -44,6 +45,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   var daySelected;
   @override
   void initState() {
+    final dateNow = DateTime.now();
+    daySelected = Day(value: dateNow.day, weekDay: dateNow.weekday);
     _controller = Controller(month: widget.date.month, year: widget.date.year);
     super.initState();
   }
@@ -70,21 +73,23 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                             color: widget.textStyleDays.color
                                                 .withOpacity(
                                                     widget.weekendOpacity))
-                                        : widget.textStyleWeekDay,
+                                        : widget.textStyleDays,
                                 activeColor: widget.activeColor,
                                 backgroundColor: widget.backgroundColor,
                                 onTap: () {
-                                  widget.onSelected(Date(
-                                      day: day.value,
-                                      month: widget.date.month,
-                                      year: widget.date.year));
-                                  if (day == daySelected) {
-                                    daySelected = null;
-                                  } else {
-                                    daySelected = day;
-                                  }
+                                  if (widget.onSelected != null) {
+                                    widget.onSelected(Date(
+                                        day: day.value,
+                                        month: widget.date.month,
+                                        year: widget.date.year));
+                                    if (day == daySelected) {
+                                      daySelected = null;
+                                    } else {
+                                      daySelected = day;
+                                    }
 
-                                  setState(() {});
+                                    setState(() {});
+                                  }
                                 },
                               ))
                           .toList()))

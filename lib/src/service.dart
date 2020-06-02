@@ -1,3 +1,4 @@
+import 'package:calendar_calendar/calendar_calendar.dart';
 import 'package:date_util/date_util.dart';
 
 import 'models/day.dart';
@@ -37,7 +38,10 @@ class Service {
     var weekDayCount = 0;
 
     for (var item in listDays) {
-      listDaysOfWeek.add(Day(value: item, weekDay: weekDayCount));
+      listDaysOfWeek.add(Day(
+          value: item,
+          weekDay: weekDayCount,
+          date: Date(day: item, month: month, year: year)));
       weekDayCount++;
       if (listDaysOfWeek.length == 7) {
         listWeeks.add(List.from(listDaysOfWeek));

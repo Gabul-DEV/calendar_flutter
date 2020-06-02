@@ -32,8 +32,8 @@ class DataCollection {
         nextMonth: Date.addMonth(current));
   }
 
-  factory DataCollection.init() {
-    final now = DateTime.now();
+  factory DataCollection.init({DateTime initialDate}) {
+    final now = initialDate ?? DateTime.now();
     final current = Date(month: now.month, year: now.year);
     return DataCollection(
         previousMonth: Date.removeMonth(current),
@@ -50,8 +50,8 @@ class CalendarPageController {
   DataCollection dataCollection;
   StreamSubscription subscription;
 
-  CalendarPageController(PageController pageController) {
-    dataCollection = DataCollection.init();
+  CalendarPageController(PageController pageController, DateTime initialDate) {
+    dataCollection = DataCollection.init(initialDate: initialDate);
     update.sink.add(PageDirection.none);
 
     subscription = currentPage.stream.listen((event) {

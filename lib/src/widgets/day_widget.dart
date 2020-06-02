@@ -29,12 +29,7 @@ class DayWidget extends StatelessWidget {
         backgroundColor: isSelected ? activeColor : backgroundColor,
         child: Text(
           day.label,
-          style: isSelected
-              ? style?.copyWith(
-                  color: activeColor.computeLuminance() > 0.4
-                      ? Colors.white
-                      : Colors.black)
-              : style,
+          style: style,
         ),
       ),
     );

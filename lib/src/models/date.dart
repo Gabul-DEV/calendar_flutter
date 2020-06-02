@@ -10,6 +10,12 @@ class Date {
   String get key => "$month/$year";
 
   @override
+  int get hashCode => month * year * day * 2;
+
+  @override
+  operator ==(other) => other.hashCode == hashCode;
+
+  @override
   String toString() => "$day de ${month.month}, $year";
 
   factory Date.addMonth(Date current) {
