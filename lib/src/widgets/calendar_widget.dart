@@ -3,6 +3,7 @@ import 'package:calendar_calendar/src/models/day.dart';
 import 'package:calendar_calendar/src/widgets/day_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../calendar_calendar.dart';
 import 'controller.dart';
 
 class CalendarWidget extends StatefulWidget {
@@ -46,7 +47,15 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   @override
   void initState() {
     final dateNow = DateTime.now();
-    daySelected = Day(value: dateNow.day, weekDay: dateNow.weekday);
+    if (dateNow.month == widget.date.month && dateNow.year == widget.date.year)
+      daySelected = Day(
+          value: dateNow.day,
+          weekDay: dateNow.weekday,
+          date: Date(
+              day: dateNow.day,
+              month: widget.date.month,
+              year: widget.date.year));
+
     _controller = Controller(month: widget.date.month, year: widget.date.year);
     super.initState();
   }

@@ -58,7 +58,11 @@ class _CalendarState extends State<Calendar>
   @override
   void initState() {
     pageController = PageController(initialPage: 1);
-    controller = CalendarPageController(pageController, widget.initialDate);
+    controller = CalendarPageController(
+      pageController,
+      widget.initialDate,
+    );
+    widget.onSelected(controller.dataCollection.currentMonth);
 
     super.initState();
   }
