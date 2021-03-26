@@ -1,20 +1,20 @@
 import 'package:calendar_calendar/calendar_calendar.dart';
-import 'package:date_util/date_util.dart';
 
 import 'models/day.dart';
+import 'utils/date_utils.dart';
 
 class Service {
-  int maxDaysInMonth({int month, int year}) =>
+  int? maxDaysInMonth({required int month, required int year}) =>
       DateUtil().daysInMonth(month, year);
 
   int weekDayByDate(DateTime date) => date.weekday == 7 ? 0 : date.weekday;
 
-  List<List<Day>> getDaysInMonth({int month, int year}) {
+  List<List<Day>> getDaysInMonth({required int month, required int year}) {
     final date = DateTime(year, month);
 
     var weekDay = weekDayByDate(date);
 
-    var monthDays = maxDaysInMonth(month: month, year: year);
+    var monthDays = maxDaysInMonth(month: month, year: year)!;
 
     var listDays = List.generate(monthDays, (index) => index + 1);
 

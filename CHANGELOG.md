@@ -1,3 +1,5 @@
+## [1.0.0] - TODO: Migration Flutter 2.0.0
+
 ## [0.0.1+4] - TODO: Mirror fix.
 
 * TODO: Add initial date.

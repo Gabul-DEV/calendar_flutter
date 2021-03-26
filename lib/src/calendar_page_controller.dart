@@ -9,9 +9,9 @@ import 'utils.dart';
 enum PageDirection { previous, next, none }
 
 class DataCollection {
-  Date currentMonth;
-  Date previousMonth;
-  Date nextMonth;
+  Date? currentMonth;
+  Date? previousMonth;
+  Date? nextMonth;
 
   DataCollection({this.currentMonth, this.previousMonth, this.nextMonth});
 
@@ -32,7 +32,7 @@ class DataCollection {
         nextMonth: Date.addMonth(current));
   }
 
-  factory DataCollection.init({DateTime initialDate}) {
+  factory DataCollection.init({DateTime? initialDate}) {
     final now = initialDate ?? DateTime.now();
     final current = Date(day: now.day, month: now.month, year: now.year);
     return DataCollection(
@@ -47,12 +47,12 @@ class CalendarPageController {
   final update = BehaviorSubject<PageDirection>();
   var month;
   var year;
-  DataCollection dataCollection;
-  StreamSubscription subscription;
+  late DataCollection dataCollection;
+  late StreamSubscription subscription;
 
   CalendarPageController(
-    PageController pageController,
-    DateTime initialDate,
+    PageController? pageController,
+    DateTime? initialDate,
   ) {
     dataCollection = DataCollection.init(initialDate: initialDate);
 
@@ -61,21 +61,21 @@ class CalendarPageController {
     subscription = currentPage.stream.listen((event) {
       if (event == 0) {
         //Previous Month
-        dataCollection = DataCollection.previous(dataCollection.currentMonth);
+        dataCollection = DataCollection.previous(dataCollection.currentMonth!);
         Future.delayed(Duration(milliseconds: 50)).then((value) {
           update.sink.add(PageDirection.previous);
-          pageController.jumpToPage(1);
+          pageController!.jumpToPage(1);
         });
       } else if (event == 2) {
-        dataCollection = DataCollection.next(dataCollection.currentMonth);
+        dataCollection = DataCollection.next(dataCollection.currentMonth!);
         Future.delayed(Duration(milliseconds: 50)).then((value) {
           update.sink.add(PageDirection.next);
-          pageController.jumpToPage(1);
+          pageController!.jumpToPage(1);
         });
       }
     });
     month = update.stream
-        .asyncMap<String>((event) => dataCollection.currentMonth.month.month);
+        .asyncMap<String>((event) => dataCollection.currentMonth!.month!.month);
   }
 
   void onChage(int value) => currentPage.sink.add(value);

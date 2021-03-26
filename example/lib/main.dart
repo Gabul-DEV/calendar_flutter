@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+  MyHomePage({Key? key, this.title}) : super(key: key);
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title!),
       ),
       body: Center(
         child: Column(
@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       borderRadius: BorderRadius.circular(500),
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.grey[300],
+                            color: Colors.grey[300]!,
                             spreadRadius: 1.5,
                             blurRadius: 5,
                             offset: Offset(2.0, 0.0))
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       borderRadius: BorderRadius.circular(500),
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.grey[300],
+                            color: Colors.grey[300]!,
                             spreadRadius: 1.5,
                             blurRadius: 5,
                             offset: Offset(2.0, 0.0))

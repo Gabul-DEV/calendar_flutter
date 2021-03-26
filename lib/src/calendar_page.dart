@@ -6,25 +6,25 @@ import 'package:flutter/material.dart';
 import 'utils.dart';
 
 class Calendar extends StatefulWidget {
-  final Color activeColor;
-  final Color backgroundColor;
-  final TextStyle selectedStyle;
-  final TextStyle textStyleDays;
-  final TextStyle textStyleWeekDay;
-  final TextStyle titleStyle;
+  final Color? activeColor;
+  final Color? backgroundColor;
+  final TextStyle? selectedStyle;
+  final TextStyle? textStyleDays;
+  final TextStyle? textStyleWeekDay;
+  final TextStyle? titleStyle;
   final bool weekendOpacityEnable;
   final double weekendOpacity;
   final bool disable;
-  final ValueChanged<Date> onSelected;
-  final DateTime initialDate;
+  final ValueChanged<Date?>? onSelected;
+  final DateTime? initialDate;
 
-  final Widget previous;
-  final Widget next;
+  final Widget? previous;
+  final Widget? next;
 
-  final double space;
+  final double? space;
 
   Calendar({
-    Key key,
+    Key? key,
     this.titleStyle,
     this.previous,
     this.next,
@@ -40,10 +40,10 @@ class Calendar extends StatefulWidget {
     this.disable = false,
     this.initialDate,
   })  : assert(weekendOpacityEnable == true
-            ? textStyleWeekDay.color != null
+            ? textStyleWeekDay!.color != null
             : true),
         assert(
-            weekendOpacityEnable == true ? textStyleDays.color != null : true),
+            weekendOpacityEnable == true ? textStyleDays!.color != null : true),
         super(key: key);
 
   @override
@@ -52,8 +52,8 @@ class Calendar extends StatefulWidget {
 
 class _CalendarState extends State<Calendar>
     with SingleTickerProviderStateMixin {
-  CalendarPageController controller;
-  PageController pageController;
+  late CalendarPageController controller;
+  PageController? pageController;
 
   @override
   void initState() {
@@ -62,7 +62,7 @@ class _CalendarState extends State<Calendar>
       pageController,
       widget.initialDate,
     );
-    widget.onSelected(controller.dataCollection.currentMonth);
+    widget.onSelected!(controller.dataCollection.currentMonth);
 
     super.initState();
   }
@@ -93,7 +93,7 @@ class _CalendarState extends State<Calendar>
                     initialData: PageDirection.none,
                     builder: (context, snapshot) {
                       return Text(
-                        "${controller.dataCollection.currentMonth.month.month}, ${controller.dataCollection.currentMonth.year}",
+                        "${controller.dataCollection.currentMonth!.month!.month}, ${controller.dataCollection.currentMonth!.year}",
                         style: widget.titleStyle,
                       );
                     }),
@@ -106,7 +106,7 @@ class _CalendarState extends State<Calendar>
                         onTap: widget.disable == true
                             ? null
                             : () {
-                                pageController.previousPage(
+                                pageController!.previousPage(
                                     duration: Duration(milliseconds: 200),
                                     curve: Curves.linear);
                               },
@@ -120,7 +120,7 @@ class _CalendarState extends State<Calendar>
                         onTap: widget.disable == true
                             ? null
                             : () {
-                                pageController.nextPage(
+                                pageController!.nextPage(
                                     duration: Duration(milliseconds: 200),
                                     curve: Curves.linear);
                               },
@@ -139,13 +139,13 @@ class _CalendarState extends State<Calendar>
                               child: Center(
                             child: Text(
                               index.week,
-                              style: widget.textStyleWeekDay.copyWith(
+                              style: widget.textStyleWeekDay!.copyWith(
                                   color: widget.weekendOpacityEnable
                                       ? index == 0 || index == 6
-                                          ? widget.textStyleWeekDay.color
+                                          ? widget.textStyleWeekDay!.color!
                                               .withOpacity(
                                                   widget.weekendOpacity)
-                                          : widget.textStyleWeekDay.color
+                                          : widget.textStyleWeekDay!.color
                                       : null),
                             ),
                           )))),
@@ -162,7 +162,7 @@ class _CalendarState extends State<Calendar>
                       onPageChanged: controller.onChage,
                       children: [
                         CalendarWidget(
-                          key: Key(controller.dataCollection.previousMonth.key),
+                          key: Key(controller.dataCollection.previousMonth!.key),
                           date: controller.dataCollection.previousMonth,
                           onSelected:
                               widget.disable == true ? null : widget.onSelected,
@@ -179,7 +179,7 @@ class _CalendarState extends State<Calendar>
                           weekendOpacity: widget.weekendOpacity,
                         ),
                         CalendarWidget(
-                          key: Key(controller.dataCollection.currentMonth.key),
+                          key: Key(controller.dataCollection.currentMonth!.key),
                           date: controller.dataCollection.currentMonth,
                           onSelected:
                               widget.disable == true ? null : widget.onSelected,
@@ -196,7 +196,7 @@ class _CalendarState extends State<Calendar>
                           weekendOpacity: widget.weekendOpacity,
                         ),
                         CalendarWidget(
-                          key: Key(controller.dataCollection.nextMonth.key),
+                          key: Key(controller.dataCollection.nextMonth!.key),
                           date: controller.dataCollection.nextMonth,
                           onSelected:
                               widget.disable == true ? null : widget.onSelected,

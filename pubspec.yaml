@@ -1,19 +1,18 @@
 name: calendar_calendar
-description: A new Flutter package project.
-version: 0.0.1+4
+description: A Calendar Custom Widget, you can selected dates, limited dates, and beautiful interface
+version: 1.0.0
 repository: https://github.com/gabuldev/calendar_flutter
 homepage: https://gabul.dev/
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  date_util: ^0.1.4
-  animate_do: ^1.7.2
-  animated_text_kit: ^2.2.0  
-  rxdart: ^0.24.1
+  animate_do: ^2.0.0
+  animated_text_kit: ^4.1.1   
+  rxdart: ^0.26.0
 
 dev_dependencies:
   flutter_test:

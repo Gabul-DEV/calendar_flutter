@@ -2,15 +2,15 @@ import 'package:calendar_calendar/src/models/day.dart';
 import 'package:flutter/material.dart';
 
 class DayWidget extends StatelessWidget {
-  final Day day;
-  final TextStyle style;
-  final Color activeColor;
-  final Color backgroundColor;
-  final Function onTap;
+  final Day? day;
+  final TextStyle? style;
+  final Color? activeColor;
+  final Color? backgroundColor;
+  final Function? onTap;
   final bool isSelected;
   final double radius;
   const DayWidget(
-      {Key key,
+      {Key? key,
       this.day,
       this.style,
       this.onTap,
@@ -23,12 +23,12 @@ class DayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: day.value == 0 ? null : onTap,
+      onTap: day!.value == 0 ? null : onTap as void Function()?,
       child: CircleAvatar(
         radius: radius,
         backgroundColor: isSelected ? activeColor : backgroundColor,
         child: Text(
-          day.label,
+          day!.label,
           style: style,
         ),
       ),

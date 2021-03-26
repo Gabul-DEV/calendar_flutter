@@ -1,9 +1,9 @@
 import 'package:calendar_calendar/calendar_calendar.dart';
 
 class Day {
-  final int value;
-  final int weekDay;
-  final Date date;
+  final int? value;
+  final int? weekDay;
+  final Date? date;
 
   @override
   String toString() => value == 0 ? "" : "$value";

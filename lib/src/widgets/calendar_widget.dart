@@ -7,27 +7,27 @@ import '../../calendar_calendar.dart';
 import 'controller.dart';
 
 class CalendarWidget extends StatefulWidget {
-  final Date date;
-  final Color activeColor;
-  final Color backgroundColor;
-  final TextStyle selectedStyle;
-  final TextStyle textStyleDays;
-  final TextStyle textStyleWeekDay;
-  final TextStyle titleStyle;
-  final ValueChanged<Date> onSelected;
-  final PageController pageController;
-  final Widget previous;
-  final Widget next;
-  final bool weekendOpacityEnable;
-  final double weekendOpacity;
+  final Date? date;
+  final Color? activeColor;
+  final Color? backgroundColor;
+  final TextStyle? selectedStyle;
+  final TextStyle? textStyleDays;
+  final TextStyle? textStyleWeekDay;
+  final TextStyle? titleStyle;
+  final ValueChanged<Date>? onSelected;
+  final PageController? pageController;
+  final Widget? previous;
+  final Widget? next;
+  final bool? weekendOpacityEnable;
+  final double? weekendOpacity;
   const CalendarWidget(
-      {Key key,
+      {Key? key,
       this.activeColor,
       this.textStyleDays,
       this.textStyleWeekDay,
       this.onSelected,
       this.backgroundColor,
-      @required this.date,
+      required this.date,
       this.previous,
       this.next,
       this.pageController,
@@ -42,21 +42,21 @@ class CalendarWidget extends StatefulWidget {
 }
 
 class _CalendarWidgetState extends State<CalendarWidget> {
-  Controller _controller;
+  late Controller _controller;
   var daySelected;
   @override
   void initState() {
     final dateNow = DateTime.now();
-    if (dateNow.month == widget.date.month && dateNow.year == widget.date.year)
+    if (dateNow.month == widget.date!.month && dateNow.year == widget.date!.year)
       daySelected = Day(
           value: dateNow.day,
           weekDay: dateNow.weekday,
           date: Date(
               day: dateNow.day,
-              month: widget.date.month,
-              year: widget.date.year));
+              month: widget.date!.month,
+              year: widget.date!.year));
 
-    _controller = Controller(month: widget.date.month, year: widget.date.year);
+    _controller = Controller(month: widget.date!.month, year: widget.date!.year);
     super.initState();
   }
 
@@ -76,21 +76,21 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                 isSelected: daySelected == day,
                                 style: daySelected == day
                                     ? widget.selectedStyle
-                                    : widget.weekendOpacityEnable &&
+                                    : widget.weekendOpacityEnable! &&
                                             day.isWeekend
-                                        ? widget.textStyleDays.copyWith(
-                                            color: widget.textStyleDays.color
+                                        ? widget.textStyleDays!.copyWith(
+                                            color: widget.textStyleDays!.color!
                                                 .withOpacity(
-                                                    widget.weekendOpacity))
+                                                    widget.weekendOpacity!))
                                         : widget.textStyleDays,
                                 activeColor: widget.activeColor,
                                 backgroundColor: widget.backgroundColor,
                                 onTap: () {
                                   if (widget.onSelected != null) {
-                                    widget.onSelected(Date(
+                                    widget.onSelected!(Date(
                                         day: day.value,
-                                        month: widget.date.month,
-                                        year: widget.date.year));
+                                        month: widget.date!.month,
+                                        year: widget.date!.year));
                                     if (day == daySelected) {
                                       daySelected = null;
                                     } else {
